@@ -1,0 +1,1 @@
+#SELCET * FROM user;
