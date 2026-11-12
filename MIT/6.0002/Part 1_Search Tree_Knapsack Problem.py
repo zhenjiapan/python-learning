@@ -79,9 +79,9 @@ weights = [2, 5, 7, 8, 11, 12]
 
 items = buildItems(names, values, weights)
 
-maxVal, maxItems = maxVal(items, 20)
-print(f'The highest value is {maxVal}, and the items combination is '
-      f'{[item.name for item in maxItems]}.')
+bestVal, bestItems = maxVal(items, 20)
+print(f'The highest value is {bestVal}, and the items combination is '
+      f'{[item.name for item in bestItems]}.')
 
 bestVal, bestItems = knapsackDP(items, 20)
 print(f'The highest value is {bestVal}, and the items combination is '
