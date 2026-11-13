@@ -105,7 +105,7 @@ from collections import deque
 def BFS(graph, start, end, toPrint = False):
     pathQueue = deque([[start]])
 
-    while pathQueue:
+    while len(pathQueue) > 0:
         tmpPath = pathQueue.popleft()
 
         if toPrint:
