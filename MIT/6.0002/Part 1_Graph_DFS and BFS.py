@@ -81,6 +81,7 @@ def buildCityGraph(graphType = Digraph):
 def printPath(path):
     return ' -> '.join(str(node) for node in path)
 
+# DFS Method
 def DFS(graph, start, end, path = [], shortest = None, toPrint = False):
     path = path + [start]
     if toPrint:
@@ -102,10 +103,11 @@ def DFS(graph, start, end, path = [], shortest = None, toPrint = False):
 
 from collections import deque
 
-def BFS(graph, start, end, toPrint = False):
+# BFS Method: Path Queue
+def BFS_pathQueue(graph, start, end, toPrint = False):
     pathQueue = deque([[start]])
 
-    while len(pathQueue) > 0:
+    while len(pathQueue) > 0: # while pathQueue:
         tmpPath = pathQueue.popleft()
 
         if toPrint:
@@ -122,6 +124,28 @@ def BFS(graph, start, end, toPrint = False):
 
     return None
 
+# BFS: Node Queue
+def BFS_nodeQueue(graph, start, end, toPrint = False):
+    nodeQueue = deque([start])
+    parent = {start: None}
+
+    while len(nodeQueue) > 0:
+        current = nodeQueue.popleft()
+        if current == end:
+            result = []
+            while current is not None:
+                result.append(current)
+                current = parent[current]
+            return result[::-1]
+
+        for nextNode in graph.childrenOf(current):
+            if nextNode not in parent:
+                parent[nextNode] = current
+                nodeQueue.append(nextNode)
+
+    return None
+
 cityGraph = buildCityGraph()
 print(printPath(DFS(cityGraph, cityGraph.getNode('Los Angeles'), cityGraph.getNode('Denver'))))
-print(printPath(BFS(cityGraph, cityGraph.getNode('Los Angeles'), cityGraph.getNode('Denver'))))
+print(printPath(BFS_pathQueue(cityGraph, cityGraph.getNode('Los Angeles'), cityGraph.getNode('Denver'))))
+print(printPath(BFS_nodeQueue(cityGraph, cityGraph.getNode('Los Angeles'), cityGraph.getNode('Denver'))))
